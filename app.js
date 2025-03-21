@@ -2,9 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
 
-// const auth = require('./routes/auth');
-const register = require('./routes/register');
-// const info = require('./routes/info');
+const user = require('./routes/user');
 
 const dotenv = require('dotenv');
 const connectDB = require('./model/db');
@@ -12,9 +10,8 @@ dotenv.config();
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-
 app.use(cors({
-    origin: 'http://localhost:5001', //change this
+    origin: 'http://localhost:5001', //frontend
     credentials: true
 }));
 
@@ -27,16 +24,12 @@ app.use(session({
 
 app.use(express.json());
 
-
 connectDB();
 
-
-// app.use('/api/login', auth);
-app.use('/api/register', register);
-// app.use('/api/info', info);
+app.use('/api/user', user);
 
 app.get('/', (req, res) => {
-    res.send("ReactJS + ExpressJS + MongoDB");
+    res.send("HTTT Counting App");
 });
 
 app.listen(PORT, () => {

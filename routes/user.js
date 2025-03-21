@@ -8,18 +8,13 @@ const Register = async (req, res) => {
     if (username === "" || password === "") return res.status(400).json({ message: "Chưa nhập đủ thông tin" });
 
     try {
-        const existingUser = await User.findOne({
-            where: {
-              username: username,
-            },
-          });
+        const existingUser = await User.findOne({username});
         if (existingUser) {
             return res.status(400).json({ message: "Người dùng đã tồn tại" });
         }
-
         const salt = await bcrypt.genSalt();
         const hashedPassword = await bcrypt.hash(password, salt);
-        const newUser = new User({ username, password: hashedPassword});
+        const newUser = new User({ username, password: hashedPassword}); //info
         await newUser.save();
         res.status(201).json({ message: "Đăng ký thành công" });
 
@@ -29,7 +24,9 @@ const Register = async (req, res) => {
     }
 }
 
-router.post('/', Register);
+
+router.post('/register', Register);
+// router.post('/login', login);
 router.get('/', (req, res) => {
       res.send("Testing");
     });
