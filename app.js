@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
+const bodyParser = require('body-parser')
 
 const user = require('./routes/user');
 
@@ -22,9 +23,14 @@ app.use(session({
     cookie: { secure: false, maxAge: 60000 }
 }));
 
+app.use(bodyParser.urlencoded({ extended: true }))
+
 app.use(express.json());
 
 connectDB();
+
+app.set('view engine', 'ejs');
+app.set('views', './templates')
 
 app.use('/api/user', user);
 

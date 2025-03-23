@@ -1,13 +1,26 @@
 const mongoose = require('mongoose');
 
 const InfoSchema = new mongoose.Schema({
-  name:{
+  username:{
+    type: String,
+    require: true,
+    unique: true
+  },
+  first_name:
+  {
     type: String,
     require: true
   },
-  address: String,
-  phone_num: String,
-  email: String
+  last_name:
+  {
+    type: String,
+    require: true
+  },
+  email:
+  {
+    type: String,
+    require: true
+  }
 });
 
 module.exports = mongoose.model('Info', InfoSchema);
