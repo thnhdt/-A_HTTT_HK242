@@ -6,6 +6,8 @@ const User = require('../model/user');
 const Info = require('../model/userInfo')
 
 const Register = async (req, res) => {
+
+    // 
     const { first_name, last_name, username, email, password } = req.body;
     if ( !first_name || !last_name || !username || !email || !password )
         return res.status(400).json({ message: "Chưa nhập đủ thông tin" });
@@ -61,8 +63,8 @@ const Login = async (req, res) => {
             last_name: info.last_name,
             email: info.email
         }
-
-        res.status(200).json(response);
+        
+        res.header('Authorization', 'Bearer ' + auth_key).status(200).json(response);
 
     } catch (error) {
         console.error('Error', error);
@@ -82,7 +84,7 @@ router.get('/login', (req, res) => {
 })
 
 router.get('/', (req, res) => {
-      res.send("Testing");
+    res.render("home");
 });
 
 module.exports = router;

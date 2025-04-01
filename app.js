@@ -4,6 +4,8 @@ const session = require('express-session');
 const bodyParser = require('body-parser')
 
 const user = require('./routes/user');
+const type = require('./routes/type');
+const image = require('./routes/image');
 
 const dotenv = require('dotenv');
 const connectDB = require('./model/db');
@@ -33,6 +35,8 @@ app.set('view engine', 'ejs');
 app.set('views', './templates')
 
 app.use('/api/user', user);
+app.use('/api/type', type);
+app.use('/api/image', image);
 
 app.get('/', (req, res) => {
     res.send("HTTT Counting App");
